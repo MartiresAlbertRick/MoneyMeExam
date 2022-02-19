@@ -29,3 +29,10 @@ C:\MoneyMeExam\ApiService\obj\Debug\net5.0\scopedcss\bundle\MoneyMeExamApiServic
 C:\MoneyMeExam\ApiService\obj\Debug\net5.0\MoneyMeExamApiService.dll
 C:\MoneyMeExam\ApiService\obj\Debug\net5.0\ref\MoneyMeExamApiService.dll
 C:\MoneyMeExam\ApiService\obj\Debug\net5.0\MoneyMeExamApiService.pdb
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\NLog.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\MoneyMeExam\ApiService\bin\Debug\net5.0\NLog.Web.AspNetCore.dll

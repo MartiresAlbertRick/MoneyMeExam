@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>MoneyMeExamRepository</AssemblyName>
+    <RootNamespace>MoneyMeExam.Repository</RootNamespace>
+    <Company>Money Me</Company>
+    <Description>Money Me Repository</Description>
+    <Copyright>Copyright © Money Me 2022</Copyright>
+    <Product>Money Me Exam</Product>
+    <Authors>Albert Rick Martires</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.14"/>
+    <PackageReference Include="NLog" Version="4.7.13"/>
+  </ItemGroup>
+</Project>

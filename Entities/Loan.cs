@@ -2,7 +2,7 @@ using System;
 
 namespace MoneyMeExam.Entities
 {
-    public class LoanApplication : Interfaces.ICustomer
+    public class Loan : Interfaces.ICustomer
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
