@@ -71,9 +71,9 @@ namespace MoneyMeExam.ApiService
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             
-            services.AddSpaStaticFiles(options => {
-                        options.RootPath = "ClientApp/dist";
-                    });
+            // services.AddSpaStaticFiles(options => {
+            //             options.RootPath = "ClientApp/dist";
+            //         });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,14 +101,14 @@ namespace MoneyMeExam.ApiService
                 endpoints.MapHealthChecks("/health", new HealthCheckOptions() { });
                 endpoints.MapControllers();
             });
-            app.UseSpa(spa => {
-                spa.Options.SourcePath = "ClientApp";
+            // app.UseSpa(spa => {
+            //     spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseAngularCliServer(npmScript: "start");
+            //     }
+            // });
         }
     }
 }

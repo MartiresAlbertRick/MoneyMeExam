@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using MoneyMeExam.Entities;
+using MoneyMeExam.Repository;
 
 namespace MoneyMeExam.ApiService.Controllers
 {
     [ApiController]
     [Route("api/loans")]
-    public class LoansController : ControllerBase
+    public class LoansController : MoneyMeBaseController
     {
-        public LoansController()
-        {
-        }
+        public LoansController(MoneyMeExamDbContext dbContext) : base(dbContext)
+        { }
 
         [HttpGet]
         [ProducesResponseType(typeof(IQueryable<Loan>), 200)]
         [ProducesResponseType(500)]
-        public IActionResult GetLoans()
-        {
-            return Ok(new List<Loan>());
-        }
+        public IActionResult GetLoans() => Get<Loan>(nameof(GetLoans), DbContext.Loans.AsNoTracking());
 
         [HttpGet("{loanId}")]
         [ProducesResponseType(typeof(Loan), 200)]
         [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult GetLoan(long? loanId)
-        {
-            return Ok(new Loan());
-        }
+        public IActionResult GetLoan([FromRoute] long? loanId) => Get<Loan>(nameof(GetLoans), DbContext.Loans.AsNoTracking(), loanId, (t => t.LoanId == loanId));
+
+        [HttpPost]
+        [ProducesResponseType(typeof(Loan), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> CreateLoanAsync([FromBody] Loan loan) => await CreateAsync<Loan>(nameof(CreateLoanAsync), loan).ConfigureAwait(false);
+
+        [HttpPut]
+        [ProducesResponseType(typeof(Loan), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UpdateLoanAsync([FromBody] Loan loan) => await UpdateAsync<Loan>(nameof(UpdateLoanAsync), (await DbContext.Loans.AsNoTracking().FirstOrDefaultAsync(t => t.LoanId == loan.LoanId).ConfigureAwait(false) is null), loan).ConfigureAwait(false);
     }
 }
