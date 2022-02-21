@@ -4,6 +4,6 @@ namespace MoneyMeExam.Entities
     {
         public long? EmailDomainId { get; set; }
         public string EmailDomainName { get; set; }
-        public string IsBlackListed { get; set; }
+        public bool? IsBlackListed { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -8,8 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MoneyMeExam.Entities;
 using MoneyMeExam.Repository;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Swashbuckle.AspNetCore.Newtonsoft;
 
 namespace MoneyMeExam.ApiService
 {
@@ -57,6 +60,13 @@ namespace MoneyMeExam.ApiService
                             }
                         });
                     })
+                    .AddTransient<IValidator<Customer>, Entities.Validators.CustomerValidator>()
+                    .AddTransient<IValidator<LoanDTO>, Entities.Validators.LoanDTOValidator>()
+                    .AddTransient<IValidator<Loan>, Entities.Validators.LoanValidator>()
+                    .AddTransient<IValidator<Product>, Entities.Validators.ProductValidator>()
+                    .AddTransient<IValidator<EmailDomain>, Entities.Validators.EmailDomainValidator>()
+                    .AddTransient<IValidator<MobileNumber>, Entities.Validators.MobileNumberValidator>()
+                    .AddSwaggerGenNewtonsoftSupport()
                     .AddFluentValidation()
                     .AddHttpContextAccessor()
                     .AddHealthChecks();
@@ -71,9 +81,9 @@ namespace MoneyMeExam.ApiService
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             
-            // services.AddSpaStaticFiles(options => {
-            //             options.RootPath = "ClientApp/dist";
-            //         });
+            services.AddSpaStaticFiles(options => {
+                        options.RootPath = "ClientApp/dist";
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,14 +111,14 @@ namespace MoneyMeExam.ApiService
                 endpoints.MapHealthChecks("/health", new HealthCheckOptions() { });
                 endpoints.MapControllers();
             });
-            // app.UseSpa(spa => {
-            //     spa.Options.SourcePath = "ClientApp";
+            app.UseSpa(spa => {
+                spa.Options.SourcePath = "ClientApp";
 
-            //     if (env.IsDevelopment())
-            //     {
-            //         spa.UseAngularCliServer(npmScript: "start");
-            //     }
-            // });
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 }

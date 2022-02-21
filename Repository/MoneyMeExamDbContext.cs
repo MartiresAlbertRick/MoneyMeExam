@@ -14,6 +14,7 @@ namespace MoneyMeExam.Repository
         public DbSet<Customer> Customers { get; set; }
         public DbSet<EmailDomain> EmailDomains { get; set; }
         public DbSet<Loan> Loans { get; set; }
+        public DbSet<LoanDetail> LoanDetails { get; set; }
         public DbSet<MobileNumber> MobileNumbers { get; set; }
         public DbSet<Product> Products { get; set; }
 
@@ -22,6 +23,7 @@ namespace MoneyMeExam.Repository
             Logger.Info("Started configuring entities");
             ConfigureCustomer(builder);
             ConfigureLoan(builder);
+            ConfigureLoanDetails(builder);
             ConfigureProduct(builder);
             ConfigureMobileNumber(builder);
             ConfigureEmailDomain(builder);
@@ -57,6 +59,19 @@ namespace MoneyMeExam.Repository
                 entity.Property(e => e.RepaymentTerms).HasColumnName("repayment_terms");
                 entity.Property(e => e.RepaymentFrequency).HasColumnName("repayment_frequency");
                 entity.Property(e => e.LoanStatus).HasColumnName("loan_status");
+            });
+        }
+
+        public static void ConfigureLoanDetails(ModelBuilder builder) 
+        {
+            builder.Entity<LoanDetail>(entity =>
+            {
+                entity.ToTable("loan_detail");
+                entity.HasKey(e => new { e.LoanDetailId });
+                entity.Property(e => e.LoanDetailId).HasColumnName("loan_detail_id");
+                entity.Property(e => e.LoanId).HasColumnName("loan_id");
+                entity.Property(e => e.Amount).HasColumnName("amount").HasColumnType("DECIMAL(32, 2)");
+                entity.Property(e => e.DueDate).HasColumnName("due_date");
             });
         }
 

@@ -2,7 +2,6 @@ namespace MoneyMeExam.Entities.Interfaces
 {
     public interface ICustomer
     {
-        long? CustomerId { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
         string Title { get; set; }

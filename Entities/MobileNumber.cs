@@ -4,6 +4,6 @@ namespace MoneyMeExam.Entities
     {
         public long? MobileNumberId { get; set; } 
         public string Number { get; set; }
-        public string IsBlackListed { get; set; }
+        public bool? IsBlackListed { get; set; }
     }
 }
