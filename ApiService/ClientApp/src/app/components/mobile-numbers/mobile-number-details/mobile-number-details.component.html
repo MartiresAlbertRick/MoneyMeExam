@@ -1,1 +1,30 @@
-<p>mobile-number-details works!</p>
+<div class="row">
+    <div class="col-lg-2">
+        <a [routerLink]="['/main/mobile-numbers']" class="btn btn-outline-secondary">
+            Back
+        </a>
+    </div>
+</div>
+<br />
+<div class="row form-group">
+    <div class="col-lg-3">
+        <label>Mobile Number Id</label>
+        <input [(ngModel)]="mobileNumber.mobileNumberId" type="text" class="form-control" readonly/>
+    </div>
+    <div class="col-lg-3">
+        <label>Number</label>
+        <input [(ngModel)]="mobileNumber.number" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Is Blacklisted</label>
+        <input [(ngModel)]="mobileNumber.isBlackListed" type="checkbox" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-2">
+        <a (click)="saveData()" class="btn btn-success">
+            Save
+        </a>
+    </div>
+</div>

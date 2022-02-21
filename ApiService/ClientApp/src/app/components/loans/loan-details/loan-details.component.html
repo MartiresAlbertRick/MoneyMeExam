@@ -1,1 +1,54 @@
-<p>loan-details works!</p>
+<div class="row">
+    <div class="col-lg-2">
+        <a [routerLink]="['/main/loans']" class="btn btn-outline-secondary">
+            Back
+        </a>
+    </div>
+</div>
+<br />
+<div class="row form-group">
+    <div class="col-lg-3">
+        <label>Loan Id</label>
+        <input [(ngModel)]="loan.loanId" type="text" class="form-control" readonly/>
+    </div>
+    <div class="col-lg-3">
+        <label>Customer</label>
+        <select [(ngModel)]="loan.customerId" class="form-control">
+            <option *ngFor="let customer of customers" [value]="customer.customerId">{{customer.firstName}} {{customer.lastName}}</option>
+        </select>
+    </div>
+    <div class="col-lg-3">
+        <label>Product</label>
+        <select [(ngModel)]="loan.productId" class="form-control">
+            <option *ngFor="let product of products" [value]="product.productId">{{product.productName}}</option>
+        </select>
+    </div>
+    <div class="col-lg-3">
+        <label>Loan Amount</label>
+        <input [(ngModel)]="loan.loanAmount" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Repayment Terms</label>
+        <input [(ngModel)]="loan.repaymentTerms" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Repayment Frequency</label>
+        <select [(ngModel)]="loan.repaymentFrequency" class="form-control">
+            <option *ngFor="let frequency of repaymentFrequencies" [value]="frequency.id">{{frequency.description}}</option>
+        </select>
+    </div>
+    <div class="col-lg-3">
+        <label>Loan Status</label>
+        <select [(ngModel)]="loan.loanStatus" class="form-control">
+            <option *ngFor="let status of loanStatuses" [value]="status.id">{{status.description}}</option>
+        </select>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-2">
+        <a (click)="saveData()" class="btn btn-success">
+            Save
+        </a>
+    </div>
+</div>

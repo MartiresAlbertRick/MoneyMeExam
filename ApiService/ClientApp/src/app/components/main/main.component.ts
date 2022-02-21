@@ -12,4 +12,9 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  activeNav: string = '';
+  setActiveNav(nav: string) {
+    this.activeNav = nav;
+  }
+
 }

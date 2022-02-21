@@ -41,6 +41,9 @@ IF NOT EXISTS (
 			[product_id] BIGINT NOT NULL,
 			[customer_id] BIGINT NOT NULL,
 			[loan_amount] DECIMAL(32, 2) NOT NULL DEFAULT(0),
+			[interest_amount] DECIMAL(32, 2) NOT NULL DEFAULT(0),
+			[establishment_fee] DECIMAL(32, 2) NOT NULL DEFAULT(0),
+			[total_repayments] DECIMAL(32, 2) NOT NULL DEFAULT(0),
 			[repayment_terms] INT NOT NULL DEFAULT(1),
 			[repayment_frequency] INT NOT NULL,
 			[loan_status] INT NOT NULL
