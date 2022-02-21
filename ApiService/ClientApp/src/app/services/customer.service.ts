@@ -13,25 +13,25 @@ export class CustomerService {
 
   public GetCustomers<T>() : Observable<T> {
     this.apiService.NormalHeader();
-    this.apiService.ApiUrl += 'customers';
+    this.apiService.ApiUrl = this.apiService.BaseUrl + 'customers';
     return this.apiService.GetMany<T>();
   }
 
-  public GetCustomer<T>(id: number) : Observable<T> {
+  public GetCustomer<T>(id?: number) : Observable<T> {
       this.apiService.NormalHeader();
-      this.apiService.ApiUrl += 'customers/' + id;
+      this.apiService.ApiUrl = this.apiService.BaseUrl + 'customers/' + id;
       return this.apiService.GetOne<T>();
   }
 
   public CreateCustomer<T>(body: string) : Observable<T> {
     this.apiService.NormalHeader();
-    this.apiService.ApiUrl += 'customers';
-    return this.apiService.PutData<T>(body);
+    this.apiService.ApiUrl = this.apiService.BaseUrl + 'customers';
+    return this.apiService.PostData<T>(body);
   }
 
   public UpdateCustomer<T>(body: string) : Observable<T> {
       this.apiService.NormalHeader();
-      this.apiService.ApiUrl += 'customers';
+      this.apiService.ApiUrl = this.apiService.BaseUrl + 'customers';
       return this.apiService.PutData<T>(body);
   }
 }

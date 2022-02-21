@@ -4,6 +4,9 @@ export interface Loan {
     customerId ?: number;
     loanAmount ?: number;
     repaymentTerms ?: number;
+    interestAmount ?: number;
+    establishmentFee ?: number;
+    totalRepayments ?: number;
     repaymentFrequency ?: number;
     loanStatus ?: number;
     loanDetails ?: LoanDetail[];

@@ -57,6 +57,9 @@ namespace MoneyMeExam.Repository
                 entity.Property(e => e.CustomerId).HasColumnName("customer_id");
                 entity.Property(e => e.LoanAmount).HasColumnName("loan_amount").HasColumnType("DECIMAL(32, 2)");
                 entity.Property(e => e.RepaymentTerms).HasColumnName("repayment_terms");
+                entity.Property(e => e.InterestAmount).HasColumnName("interest_amount").HasColumnType("DECIMAL(32, 2)");
+                entity.Property(e => e.EstablishmentFee).HasColumnName("establishment_fee").HasColumnType("DECIMAL(32, 2)");
+                entity.Property(e => e.TotalRepayments).HasColumnName("total_repayments").HasColumnType("DECIMAL(32, 2)");
                 entity.Property(e => e.RepaymentFrequency).HasColumnName("repayment_frequency");
                 entity.Property(e => e.LoanStatus).HasColumnName("loan_status");
             });

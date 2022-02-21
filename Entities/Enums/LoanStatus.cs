@@ -6,6 +6,8 @@ namespace MoneyMeExam.Entities.Enums
     {
         [Description("Loan is approved")]
         Approved,
+        [Description("Loan is for quotation")]
+        ForQuotation,
         [Description("Loan is under review")]
         InProgress,
         [Description("Loan is declined")]

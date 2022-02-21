@@ -81,7 +81,7 @@ namespace MoneyMeExam.ApiService.Controllers
                 await transaction.CommitAsync().ConfigureAwait(false);
                 return StatusCode(201, new {
                     message = "Loan application successfully submitted",
-                    redirectUrl = $"https://localhost:5001/loan-application-step-1/{newLoan.LoanId}"
+                    redirectUrl = $"{(Request.IsHttps ? "https://" : "http://") + Request.Host.Value}/loan-application-step-1/{newLoan.LoanId}"
                 });
             }
             catch (Exception e)

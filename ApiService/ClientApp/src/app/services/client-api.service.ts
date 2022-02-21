@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ClientApiService {
-    public ApiUrl = window.location.origin + '/api/';
+    public BaseUrl = window.location.origin + '/api/';
+    public ApiUrl = '';
     public HttpHeaders : HttpHeaders = new HttpHeaders({});
 
     constructor(private httpClient : HttpClient) { }
