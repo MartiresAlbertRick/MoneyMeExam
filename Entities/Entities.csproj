@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>MoneyMeExamEntities</AssemblyName>
+    <RootNamespace>MoneyMeExam.Entities</RootNamespace>
+    <Company>Money Me</Company>
+    <Description>Money Me Entities</Description>
+    <Copyright>Copyright © Money Me 2022</Copyright>
+    <Product>Money Me Exam</Product>
+    <Authors>Albert Rick Martires</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6"/>
+  </ItemGroup>
+</Project>
