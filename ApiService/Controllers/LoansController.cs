@@ -97,6 +97,16 @@ namespace MoneyMeExam.ApiService.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> UpdateLoanAsync([FromBody] Loan loan) => await UpdateAsync<Loan>(nameof(UpdateLoanAsync), (await DbContext.Loans.AsNoTracking().FirstOrDefaultAsync(t => t.LoanId == loan.LoanId).ConfigureAwait(false) is null), loan, UpdateLoanDetailsAsync).ConfigureAwait(false);
 
+        [HttpPut("compute-loan-repayments")]
+        [ProducesResponseType(typeof(Loan), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> ComputeLoanRepayments([FromBody] Loan loan)
+        {
+            Product product = await DbContext.Products.AsNoTracking().FirstOrDefaultAsync(t => t.ProductId == loan.ProductId).ConfigureAwait(false);
+            return Ok(loan);    
+        }
+
         [NonAction]
         public async Task UpdateLoanDetailsAsync(Loan loan) 
         {

@@ -1,36 +1,36 @@
+using Microsoft.VisualBasic;
 using MoneyMeExam.Entities;
 
 namespace MoneyMeExam.ApiService.Services
 {
-    public class ComputeLoanRepayments
+    public abstract class Calculator
     {
-        public virtual Loan Compute()
-        {
-            return new Loan();
-        }
+        public abstract double Compute();
     }
 
-    public class ComputeLoanRepaymentWithNoInterestFree : ComputeLoanRepayments
+    public class CalculateWithNoInterestFree : Calculator
     {
-        public override Loan Compute()
-        {
-            return base.Compute();
-        }
+        public override double Compute();
     }
 
-    public class ComputeLoanRepaymentWithInterestFree : ComputeLoanRepayments
+    public class CalculateWithFirstTwoMonthsInterestFreeWithSixMonthDuration : Calculator
     {
-        public override Loan Compute()
-        {
-            return base.Compute();
-        }
+        // public override double Compute(double loanAmount, double paymentTerms = 1, double rate = 0)
+        // {
+        //     return base.Compute(rate, paymentTerms, loanAmount);
+        // }
+        public override double Compute();
     }
 
-    public class ComputeLoanRepaymentWithFirstTwoMonthsInterestFreeWithSixMonthDuration : ComputeLoanRepayments
+    public class MainCalculator<T> where T : Calculator
     {
-        public override Loan Compute()
+        public double Rate {get; set; }
+        public double PaymentTerms { get; set; }
+        public double LoanAmount { get; set; }
+
+        public double Compute()
         {
-            return base.Compute();
+            return Financial.Pmt(Rate, PaymentTerms, LoanAmount);
         }
     }
 }
