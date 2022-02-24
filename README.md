@@ -32,8 +32,14 @@ Change database connection string configuration in `appsettings.Development.json
 }
 ```
 
-##Setting up the Development Environment
-In VSCode Terminal Go to `MoneyMeExam\ApiService` run the following command to restore nuget packages
+## Run the codes
+In VSCode Terminal, change the directory to `MoneyMeExam\ApiService` then type the following command to build and run the application
+```
+dotnet run
+```
+
+## Setting up the Development Environment
+In VSCode Terminal, change the directory `MoneyMeExam\ApiService` then type the following command to restore nuget packages
 ```
 dotnet restore
 ```
@@ -42,12 +48,12 @@ Then go to `MoneyMeExam\ApiService\ClientApp` run the following command to insta
 npm install
 ```
 
-##Build and Deployment
-In VSCode Terminal Go to `MoneyMeExam\ApiService\ClientApp` run the following command build the Angular app to production
+## Build and Deployment
+In VSCode Terminal, change the directory to `MoneyMeExam\ApiService\ClientApp` then type following command build the Angular app to production
 ```
 ng build --prod
 ```
-Then go to `MoneyMeExam\ApiService` run the following command to build and deploy the ApiService project along with the built Angular app
+Then change the directory to `MoneyMeExam\ApiService` then type the following command to build and deploy the ApiService project along with the published Angular app
 ```
 dotnet publish --configuration Release
 ```

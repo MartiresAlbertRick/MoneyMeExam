@@ -27,11 +27,14 @@
                         {{product.interestRate}}
                     </td>
                     <td>
+                        {{product.establishmentFee}}
+                    </td>
+                    <td>
                         <a [routerLink]="['/main/products/' + product.productId]" class="btn btn-outline-primary">Edit</a>
                     </td>
                 </tr>
                 <tr *ngIf="products.length == 0">
-                    <td colspan="5">No records to show</td>
+                    <td colspan="6">No records to show</td>
                 </tr>
             </tbody>
         </table>

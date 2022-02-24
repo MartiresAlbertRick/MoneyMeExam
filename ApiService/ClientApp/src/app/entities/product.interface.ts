@@ -3,4 +3,5 @@ export interface Product {
     productName ?: string;
     productType ?: number;
     interestRate ?: number;
+    establishmentFee ?: number;
 }

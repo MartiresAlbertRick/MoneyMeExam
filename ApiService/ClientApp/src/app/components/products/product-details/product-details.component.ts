@@ -105,5 +105,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
               }}));
       }
     }
-  } 
+  }
+  
+  onTypeChange() {
+    if (this.product.productType==1) {
+      this.product.interestRate = 0;
+    }
+  }
 }
