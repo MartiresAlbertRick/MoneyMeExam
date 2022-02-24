@@ -76,14 +76,15 @@ IF NOT EXISTS (
 			[product_id] BIGINT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
 			[product_name] NVARCHAR(50) NOT NULL,
 			[product_type] INT NOT NULL,
-			[interest_rate] DECIMAL(32, 2) NOT NULL
+			[interest_rate] DECIMAL(32, 2) NOT NULL,
+			[establishment_fee] DECIMAL(32, 2) NOT NULL
 		) ON [PRIMARY]
 	GO	
 GO
 
-INSERT INTO product VALUES('ProductA', 1, 2)
-INSERT INTO product VALUES('ProductB', 0, 2)
-INSERT INTO product VALUES('ProductC', 2, 2)
+INSERT INTO product VALUES('ProductA', 1, 2, 300)
+INSERT INTO product VALUES('ProductB', 0, 2, 300)
+INSERT INTO product VALUES('ProductC', 2, 2, 300)
 GO
 
 IF NOT EXISTS (

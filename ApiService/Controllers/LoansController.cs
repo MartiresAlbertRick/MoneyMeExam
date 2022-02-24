@@ -67,9 +67,12 @@ namespace MoneyMeExam.ApiService.Controllers
 
                 var newLoan = new Loan 
                 {
-                    ProductId = 0,
+                    ProductId = 1,
                     CustomerId = newCustomer.CustomerId,
                     LoanAmount = loan.LoanAmount,
+                    InterestAmount = 0,
+                    EstablishmentFee = 0,
+                    TotalRepayments = 0,
                     RepaymentTerms = loan.RepaymentTerms,
                     RepaymentFrequency = Entities.Enums.RepaymentFrequency.Monthly,
                     LoanStatus = Entities.Enums.LoanStatus.InProgress
@@ -103,8 +106,30 @@ namespace MoneyMeExam.ApiService.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> ComputeLoanRepayments([FromBody] Loan loan)
         {
-            Product product = await DbContext.Products.AsNoTracking().FirstOrDefaultAsync(t => t.ProductId == loan.ProductId).ConfigureAwait(false);
-            return Ok(loan);    
+            try 
+            {
+                Product product = await DbContext.Products.AsNoTracking().FirstOrDefaultAsync(t => t.ProductId == loan.ProductId).ConfigureAwait(false);
+                Services.ICalculator calculator;
+                switch (product.ProductType)
+                {
+                    case Entities.Enums.ProductType.InterestFree:
+                    case Entities.Enums.ProductType.NoInterestFree:
+                        calculator = new Services.Calculator();
+                        loan.TotalRepayments =  Convert.ToDecimal(calculator.Compute(Convert.ToDouble(product.InterestRate), Convert.ToDouble(loan.RepaymentTerms), Convert.ToDouble(loan.LoanAmount)));  
+                        break;
+                    case Entities.Enums.ProductType.FirstTwoMonthsInterestFreeWithSixMonthDuration:
+                        calculator = new Services.CalculateWithFirstTwoMonthsInterestFreeWithSixMonthDuration();
+                        loan.TotalRepayments = Convert.ToDecimal(calculator.Compute(Convert.ToDouble(product.InterestRate), Convert.ToDouble(loan.RepaymentTerms), Convert.ToDouble(loan.LoanAmount)));  
+                        break;
+                    default:
+                        return BadRequest(new { message = "Invalid product type" });
+                }
+                return Ok(loan);    
+            }
+            catch (Exception e)
+            {
+                return ConvertExceptionToHttpStatusCode(e, nameof(ComputeLoanRepayments));
+            }
         }
 
         [NonAction]

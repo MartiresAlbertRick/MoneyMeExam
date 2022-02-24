@@ -20,6 +20,8 @@ import { LoanDetailsComponent } from './components/loans/loan-details/loan-detai
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { LoanApplicationCompletedComponent } from './components/loans/loan-application-completed/loan-application-completed.component';
+import { LoanApplicationDeniedComponent } from './components/loans/loan-application-denied/loan-application-denied.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { DatePipe } from '@angular/common';
     EmailDomainsComponent,
     EmailDomainDetailsComponent,
     MobileNumbersComponent,
-    MobileNumberDetailsComponent
+    MobileNumberDetailsComponent,
+    LoanApplicationCompletedComponent,
+    LoanApplicationDeniedComponent
   ],
   imports: [
     BrowserModule,

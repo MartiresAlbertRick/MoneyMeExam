@@ -13,6 +13,8 @@ import { MobileNumberDetailsComponent } from 'src/app/components/mobile-numbers/
 import { MobileNumbersComponent } from 'src/app/components/mobile-numbers/mobile-numbers.component';
 import { ProductDetailsComponent } from 'src/app/components/products/product-details/product-details.component';
 import { ProductsComponent } from 'src/app/components/products/products.component';
+import { LoanApplicationCompletedComponent } from './components/loans/loan-application-completed/loan-application-completed.component';
+import { LoanApplicationDeniedComponent } from './components/loans/loan-application-denied/loan-application-denied.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -30,7 +32,9 @@ const routes: Routes = [
        { path: 'mobile-numbers/:id', component: MobileNumberDetailsComponent },
      ]},
   { path: 'loan-application-step-1/:id', component: LoanApplicationStep1Component },
-  { path: 'loan-application-step-2/:id', component: LoanApplicationStep2Component }
+  { path: 'loan-application-step-2/:id', component: LoanApplicationStep2Component },
+  { path: 'loan-application-completed', component: LoanApplicationCompletedComponent },
+  { path: 'loan-application-denied', component: LoanApplicationDeniedComponent }
 ];
 
 @NgModule({
