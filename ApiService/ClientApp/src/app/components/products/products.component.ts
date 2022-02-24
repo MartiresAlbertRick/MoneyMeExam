@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subscriptions$ : Subscription[] = [];
   products: Product[] = [];
   enumData: EnumData[] = [];
-  colHeaders: string[] = ["Product Id", "Product Name", "Product Type", "Interest Rate", "Actions"];
+  colHeaders: string[] = ["Product Id", "Product Name", "Product Type", "Interest Rate", "Establishment Fee", "Actions"];
 
   constructor(
     private productService : ProductService,

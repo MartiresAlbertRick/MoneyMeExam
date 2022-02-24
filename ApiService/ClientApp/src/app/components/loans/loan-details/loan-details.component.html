@@ -28,18 +28,30 @@
         <input [(ngModel)]="loan.loanAmount" type="text" class="form-control" />
     </div>
     <div class="col-lg-3">
+        <label>Total Repayment</label>
+        <input [(ngModel)]="loan.totalRepayments" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Interest Amount</label>
+        <input [(ngModel)]="loan.interestAmount" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Establishment Fee</label>
+        <input [(ngModel)]="loan.establishmentFee" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
         <label>Repayment Terms</label>
         <input [(ngModel)]="loan.repaymentTerms" type="text" class="form-control" />
     </div>
     <div class="col-lg-3">
         <label>Repayment Frequency</label>
-        <select [(ngModel)]="loan.repaymentFrequency" class="form-control">
+        <select [(ngModel)]="loan.repaymentFrequency" class="form-select">
             <option *ngFor="let frequency of repaymentFrequencies" [value]="frequency.id">{{frequency.description}}</option>
         </select>
     </div>
     <div class="col-lg-3">
         <label>Loan Status</label>
-        <select [(ngModel)]="loan.loanStatus" class="form-control">
+        <select [(ngModel)]="loan.loanStatus" class="form-select">
             <option *ngFor="let status of loanStatuses" [value]="status.id">{{status.description}}</option>
         </select>
     </div>

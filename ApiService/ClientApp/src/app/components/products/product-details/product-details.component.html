@@ -17,13 +17,17 @@
     </div>
     <div class="col-lg-3">
         <label>Product Type</label>
-        <select [(ngModel)]="product.productType" class="form-control">
+        <select [(ngModel)]="product.productType" class="form-select" (change)="onTypeChange()">
             <option *ngFor="let data of enumData" [value]="data.id">{{data.description}}</option>
         </select>
     </div>
     <div class="col-lg-3">
         <label>Interest Rate</label>
-        <input [(ngModel)]="product.interestRate" type="text" class="form-control" />
+        <input [disabled]="product.productType==1" [(ngModel)]="product.interestRate" type="text" class="form-control" />
+    </div>
+    <div class="col-lg-3">
+        <label>Establishment Fee</label>
+        <input [(ngModel)]="product.establishmentFee" type="text" class="form-control" />
     </div>
 </div>
 <br />

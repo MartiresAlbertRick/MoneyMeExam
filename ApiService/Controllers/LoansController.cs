@@ -115,11 +115,11 @@ namespace MoneyMeExam.ApiService.Controllers
                     case Entities.Enums.ProductType.InterestFree:
                     case Entities.Enums.ProductType.NoInterestFree:
                         calculator = new Services.Calculator();
-                        loan.TotalRepayments =  Convert.ToDecimal(calculator.Compute(Convert.ToDouble(product.InterestRate), Convert.ToDouble(loan.RepaymentTerms), Convert.ToDouble(loan.LoanAmount)));  
+                        calculator.Compute(loan, product);  
                         break;
                     case Entities.Enums.ProductType.FirstTwoMonthsInterestFreeWithSixMonthDuration:
                         calculator = new Services.CalculateWithFirstTwoMonthsInterestFreeWithSixMonthDuration();
-                        loan.TotalRepayments = Convert.ToDecimal(calculator.Compute(Convert.ToDouble(product.InterestRate), Convert.ToDouble(loan.RepaymentTerms), Convert.ToDouble(loan.LoanAmount)));  
+                        calculator.Compute(loan, product);
                         break;
                     default:
                         return BadRequest(new { message = "Invalid product type" });
