@@ -16,7 +16,7 @@
         </div>
         <div class="col-lg-3">
             <label>Product</label>
-            <select [(ngModel)]="loan.productId" class="form-control">
+            <select [(ngModel)]="loan.productId" class="form-select">
                 <option *ngFor="let product of products" [value]="product.productId">{{product.productName}}</option>
             </select>
         </div>

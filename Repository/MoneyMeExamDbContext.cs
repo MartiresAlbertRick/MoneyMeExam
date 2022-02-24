@@ -88,6 +88,7 @@ namespace MoneyMeExam.Repository
                 entity.Property(e => e.ProductName).HasColumnName("product_name");
                 entity.Property(e => e.ProductType).HasColumnName("product_type");
                 entity.Property(e => e.InterestRate).HasColumnName("interest_rate").HasColumnType("DECIMAL(32, 2)");
+                entity.Property(e => e.EstablishmentFee).HasColumnName("establishment_fee").HasColumnType("DECIMAL(32, 2)");
             });
         }
 
