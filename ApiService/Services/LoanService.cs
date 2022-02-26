@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic;
 using System;
+using System.Linq;
 
 namespace MoneyMeExam.ApiService.Services
 {
@@ -11,6 +12,7 @@ namespace MoneyMeExam.ApiService.Services
             decimal interestAmount = (monthlyPayments * (int)loan.RepaymentTerms) - (decimal)loan.LoanAmount;
             loan.EstablishmentFee = product.EstablishmentFee;
             loan.TotalRepayments = (monthlyPayments * loan.RepaymentTerms) + product.EstablishmentFee;
+            monthlyPayments = (decimal)loan.TotalRepayments / (int)loan.RepaymentTerms;
             loan.InterestAmount = interestAmount < 0 ? 0 : interestAmount;
             loan.LoanDetails.Clear();
             DateTime dueDate = DateTime.Now;
@@ -31,6 +33,20 @@ namespace MoneyMeExam.ApiService.Services
         public override void Compute(Entities.Loan loan, Entities.Product product)
         {
             base.Compute(loan, product);
+            if (loan.RepaymentTerms >= 6)
+            {
+                //compute monthly payments with interest free
+                decimal monthlyPayments = Math.Round((decimal)loan.LoanAmount / (int)loan.RepaymentTerms, 2);
+                decimal totalRepayments = (monthlyPayments * (int)loan.RepaymentTerms) + (decimal)product.EstablishmentFee;
+                monthlyPayments = totalRepayments / (int)loan.RepaymentTerms;
+                IQueryable<Entities.LoanDetail> firstTwoMonths = loan.LoanDetails.OrderBy(t => t.DueDate).Take(2).AsQueryable();
+                foreach(Entities.LoanDetail loanDetail in firstTwoMonths)
+                {
+                    loan.TotalRepayments -= (loanDetail.Amount - monthlyPayments);
+                    loanDetail.Amount = monthlyPayments;
+                }
+                loan.InterestAmount = loan.TotalRepayments - loan.EstablishmentFee;
+            }
         }
     }
 
