@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
 import { Customer, Loan, Product } from 'src/app/entities/entities';
 import { CustomerService, LoanService, ProductService } from 'src/app/services/services';
@@ -20,7 +20,8 @@ export class LoanApplicationStep2Component implements OnInit {
     private loanService : LoanService,
     private productService : ProductService,
     private customerService : CustomerService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +66,29 @@ export class LoanApplicationStep2Component implements OnInit {
             alert('Caught an error. Please see logs.');
             console.log('loadData', error);
           }}));
+  }
+
+  saveData() {
+    if (confirm("Save record?")) {
+      if (this.loan.loanId == 0) {
+        alert('Loan doesn\'t exist');
+      } else {
+        this.subscriptions$.push(
+          forkJoin([
+            this.loanService.UpdateLoan<Loan>(JSON.stringify(this.loan)),
+            this.customerService.UpdateCustomer<Customer>(JSON.stringify(this.customer))
+          ]).subscribe({
+              next: (value: [loans: Loan, customer: Customer]) => {
+                this.loan = value[0];
+                this.customer = value[1];
+                alert('Successfully saved!');
+                this.router.navigate(['loan-application-completed']);
+              }, error : (error) => {
+                alert('Caught an error. Please see logs.');
+                console.log('loadData', error);
+              }}));
+      }
+    }
   }
 
 }
