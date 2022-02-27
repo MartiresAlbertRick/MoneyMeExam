@@ -34,4 +34,10 @@ export class LoanService {
       this.apiService.ApiUrl = this.apiService.BaseUrl + 'loans';
       return this.apiService.PutData<T>(body);
   }
+
+  public ComputeLoanRepayments<T>(body: string) : Observable<T> {
+    this.apiService.NormalHeader();
+    this.apiService.ApiUrl = this.apiService.BaseUrl + 'loans/compute-loan-repayments';
+    return this.apiService.PutData<T>(body);
+}
 }
