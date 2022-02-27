@@ -95,6 +95,7 @@ namespace MoneyMeExam.ApiService.Controllers
         }
 
         [HttpPut]
+        [Services.CustomLoanApplicationValidation]
         [ProducesResponseType(typeof(Loan), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
