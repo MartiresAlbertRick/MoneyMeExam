@@ -13,25 +13,25 @@ export class MobileNumberService {
 
   public GetMobileNumbers<T>() : Observable<T> {
     this.apiService.NormalHeader();
-    this.apiService.ApiUrl = this.apiService.BaseUrl + 'mobile-numbers';
+    this.apiService.ApiUrl = `${this.apiService.BaseUrl}mobile-numbers`;
     return this.apiService.GetMany<T>();
   }
 
   public GetMobileNumber<T>(id?: number) : Observable<T> {
       this.apiService.NormalHeader();
-      this.apiService.ApiUrl = this.apiService.BaseUrl + 'mobile-numbers/' + id;
+      this.apiService.ApiUrl = `${this.apiService.BaseUrl}mobile-numbers/${id}`;
       return this.apiService.GetOne<T>();
   }
 
   public CreateMobileNumber<T>(body: string) : Observable<T> {
     this.apiService.NormalHeader();
-    this.apiService.ApiUrl = this.apiService.BaseUrl + 'mobile-numbers';
+    this.apiService.ApiUrl = `${this.apiService.BaseUrl}mobile-numbers`;
     return this.apiService.PostData<T>(body);
   }
 
   public UpdateMobileNumber<T>(body: string) : Observable<T> {
       this.apiService.NormalHeader();
-      this.apiService.ApiUrl = this.apiService.BaseUrl + 'mobile-numbers';
+      this.apiService.ApiUrl = `${this.apiService.BaseUrl}mobile-numbers`;
       return this.apiService.PutData<T>(body);
   }
 }

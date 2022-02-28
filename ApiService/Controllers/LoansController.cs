@@ -136,25 +136,9 @@ namespace MoneyMeExam.ApiService.Controllers
         [NonAction]
         public async Task UpdateLoanDetailsAsync(Loan loan) 
         {
-            if (loan.LoanDetails.Count < 1) 
+            if (loan.LoanDetails.Count < 1)
             {
                 await DbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM loan_detail WHERE loan_id={loan.LoanId}").ConfigureAwait(false);
-            }
-            else 
-            {
-                Loan oldLoan = await DbContext.Loans.AsNoTracking().Include(t => t.LoanDetails).FirstOrDefaultAsync(t => t.LoanId == loan.LoanId);
-                var oldDetailsForRemoval = new List<long>();
-                foreach(LoanDetail detail in oldLoan.LoanDetails)
-                {
-                    if (loan.LoanDetails.Where(t => t.LoanDetailId == detail.LoanId).Count() < 1)
-                    {
-                        oldDetailsForRemoval.Add((long)detail.LoanDetailId);
-                    }
-                }
-                if (oldDetailsForRemoval.Count > 0)
-                {
-                    await DbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM loan_detail WHERE loan_detail_id IN ({oldDetailsForRemoval.ToArray()})").ConfigureAwait(false);
-                }
             }
         }
     }

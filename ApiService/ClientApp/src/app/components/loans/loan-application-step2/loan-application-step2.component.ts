@@ -75,17 +75,19 @@ export class LoanApplicationStep2Component implements OnInit {
       } else {
         this.subscriptions$.push(
           forkJoin([
-            this.loanService.UpdateLoan<Loan>(JSON.stringify(this.loan)),
-            this.customerService.UpdateCustomer<Customer>(JSON.stringify(this.customer))
+            this.loanService.UpdateLoan<Loan>(JSON.stringify(this.loan), true)
           ]).subscribe({
-              next: (value: [loans: Loan, customer: Customer]) => {
+              next: (value: [loans: Loan]) => {
                 this.loan = value[0];
-                this.customer = value[1];
                 alert('Successfully saved!');
                 this.router.navigate(['loan-application-completed']);
               }, error : (error) => {
-                alert('Caught an error. Please see logs.');
-                console.log('loadData', error);
+                console.log('saveData', error);
+                if (error.status == 400) {
+                  this.router.navigate(['loan-application-denied']);
+                } else {
+                  alert('Caught an error. Please see logs.');
+                }
               }}));
       }
     }

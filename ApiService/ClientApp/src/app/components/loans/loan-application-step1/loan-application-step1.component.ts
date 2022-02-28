@@ -77,10 +77,10 @@ export class LoanApplicationStep1Component implements OnInit {
                 this.loan = value[0];
                 this.customer = value[1];
                 alert('Successfully saved!');
-                this.router.navigate(['loan-application-step-2/' + this.loan.loanId]);
+                this.router.navigate([`loan-application-step-2/${this.loan.loanId}`]);
               }, error : (error) => {
                 alert('Caught an error. Please see logs.');
-                console.log('loadData', error);
+                console.log('saveData', error);
               }}));
       }
     }

@@ -103,11 +103,11 @@ namespace MoneyMeExam.ApiService.Controllers
                 {
                     return NotFound(new { message = $"Could not update the data from {methodName}" });
                 }
-                DbContext.Update(data);
                 if (!(callbackDelegate is null))
                 {
                     await callbackDelegate(data).ConfigureAwait(false);
                 }
+                DbContext.Update(data);
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 await transaction.CommitAsync().ConfigureAwait(false);
                 return Ok(data);
