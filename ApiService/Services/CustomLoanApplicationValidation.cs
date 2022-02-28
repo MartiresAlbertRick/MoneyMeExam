@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using NLog;
@@ -12,7 +12,7 @@ using System.Text;
 
 namespace MoneyMeExam.ApiService.Services
 {
-    public class CustomLoanApplicationValidation : ActionFilterAttribute
+    public class CustomLoanApplicationValidation : Attribute, IResourceFilter
     {
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static readonly JsonSerializerSettings jsonSerializerSettings = new()
@@ -24,20 +24,28 @@ namespace MoneyMeExam.ApiService.Services
         public CustomLoanApplicationValidation()
         { }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
+        public void OnResourceExecuted(ResourceExecutedContext context)
+        {
+            // do nothing
+        }
+
+        public void OnResourceExecuting(ResourceExecutingContext context)
         {
             try 
             {
-                bool validateLoanApplication = context.HttpContext.Request.Headers["x-validate-appliation"] == "true";
+                HttpRequest request = context.HttpContext.Request;
+                bool validateLoanApplication = request.Headers["x-validate-application"] == "true";
                 if (validateLoanApplication)
                 {
                     using var reader = new StreamReader(context.HttpContext.Request.Body);
                     string content = reader.ReadToEndAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                    Logger.Info($"Load content {content}");
                     Entities.Loan loan = JsonConvert.DeserializeObject<Entities.Loan>(content);
-                    var result = context.Result as ObjectResult;
                     var dbContext = context.HttpContext.RequestServices.GetService(typeof(Repository.MoneyMeExamDbContext)) as Repository.MoneyMeExamDbContext;
+                    Logger.Info($"Getting customer where customer id {loan.CustomerId}");
                     Entities.Customer customer = dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(t => t.CustomerId == loan.CustomerId).ConfigureAwait(false).GetAwaiter().GetResult();
                     var mail = new MailAddress(customer.Email);
+                    Logger.Info($"Email host {mail.Host}");
                     if (dbContext.EmailDomains.AsNoTracking().Where(t => t.EmailDomainName == mail.Host && t.IsBlackListed == true).Count() >= 1)
                     {
                         context.HttpContext.Response.StatusCode = 400;
@@ -59,7 +67,6 @@ namespace MoneyMeExam.ApiService.Services
                         context.HttpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(responseContent));
                     }
                 }
-                base.OnActionExecuting(context);
             }
             catch (Exception e)
             {

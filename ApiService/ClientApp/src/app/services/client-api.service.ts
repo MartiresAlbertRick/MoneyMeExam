@@ -16,6 +16,10 @@ export class ClientApiService {
         });
     }
 
+    public IncludeValidateApplicationHeader(validateApplication: string) {
+        this.HttpHeaders = this.HttpHeaders.append('x-validate-application', validateApplication);
+    }
+
     public GetMany<T>() : Observable<T> {
         return this.httpClient.get<T>(this.ApiUrl, { headers: this.HttpHeaders });
     }

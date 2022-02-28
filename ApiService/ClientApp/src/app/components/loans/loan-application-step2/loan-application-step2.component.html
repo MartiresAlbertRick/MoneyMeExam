@@ -1,1 +1,56 @@
-<p>loan-application-step2 works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-2">
+            <h4>Your Quote</h4>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-md-center">
+        <div class="col-lg-4">
+            <h6>Your Information</h6>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-4">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>{{customer.firstName}} {{customer.lastName}}</td>
+                </tr>
+                <tr>
+                    <th>Mobile</th>
+                    <td>{{customer.mobile}}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{customer.email}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-md-center">
+        <div class="col-lg-4">
+            <h6>Finance Details</h6>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-4">
+            <table>
+                <tr>
+                    <th>Finance Amount</th>
+                    <td>{{loan.loanAmount}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-md-center">
+        <div class="col-lg-2">
+            <a [routerLink]="['/loan-application-step-1/' + loan.loanId]" class="btn btn-primary">Edit Information</a>
+        </div>
+        <div class="col-lg-2">
+            <a (click)="saveData()" class="btn btn-success">Apply Now</a>
+        </div>
+    </div>
+</div>
