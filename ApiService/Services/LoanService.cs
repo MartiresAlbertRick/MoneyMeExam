@@ -45,7 +45,7 @@ namespace MoneyMeExam.ApiService.Services
                     loan.TotalRepayments -= (loanDetail.Amount - monthlyPayments);
                     loanDetail.Amount = monthlyPayments;
                 }
-                loan.InterestAmount = loan.TotalRepayments - loan.EstablishmentFee;
+                loan.InterestAmount = (loan.TotalRepayments - loan.LoanAmount) - loan.EstablishmentFee;
             }
         }
     }
