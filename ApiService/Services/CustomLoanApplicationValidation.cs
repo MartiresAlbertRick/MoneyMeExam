@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using NLog;
@@ -46,25 +47,24 @@ namespace MoneyMeExam.ApiService.Services
                     Entities.Customer customer = dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(t => t.CustomerId == loan.CustomerId).ConfigureAwait(false).GetAwaiter().GetResult();
                     var mail = new MailAddress(customer.Email);
                     Logger.Info($"Email host {mail.Host}");
-                    if (dbContext.EmailDomains.AsNoTracking().Where(t => t.EmailDomainName == mail.Host && t.IsBlackListed == true).Count() >= 1)
-                    {
-                        context.HttpContext.Response.StatusCode = 400;
-                        string responseContent = JsonConvert.SerializeObject(new { message = "Email domain is blacklisted" });
-                        context.HttpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(responseContent));
-                    }
-                    if (dbContext.MobileNumbers.AsNoTracking().Where(t => t.Number == customer.Mobile && t.IsBlackListed == true).Count() >= 1)
-                    {
-                        context.HttpContext.Response.StatusCode = 400;
-                        string responseContent = JsonConvert.SerializeObject(new { message = "Number is blacklisted" });
-                        context.HttpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(responseContent));
-                    }
                     int age =  DateTime.Today.Year - customer.DateOfBirth.GetValueOrDefault().Year;
                     if (customer.DateOfBirth.GetValueOrDefault().Date > DateTime.Today.AddYears(-age)) age--;
-                    if (age <= 18)
+
+                    if (dbContext.EmailDomains.AsNoTracking().Where(t => t.EmailDomainName == mail.Host && t.IsBlackListed == true).Count() >= 1)
                     {
-                        context.HttpContext.Response.StatusCode = 400;
-                        string responseContent = JsonConvert.SerializeObject(new { message = "Age is below 18 years old" });
-                        context.HttpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(responseContent));
+                        context.Result = new BadRequestObjectResult(new { message = "Email domain is blacklisted" });
+                    }
+                    else if (dbContext.MobileNumbers.AsNoTracking().Where(t => t.Number == customer.Mobile && t.IsBlackListed == true).Count() >= 1)
+                    {
+                        context.Result = new BadRequestObjectResult(new { message = "Number is blacklisted" });
+                    }
+                    else if (age <= 18)
+                    {
+                        context.Result = new BadRequestObjectResult(new { message = "Age is below 18 years old" });
+                    }
+                    else 
+                    {
+                        context.HttpContext.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(content));
                     }
                 }
             }
